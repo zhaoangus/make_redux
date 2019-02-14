@@ -9,6 +9,19 @@ const appStore = {
   }
 }
 
+function dispatch (action) {
+  switch (action.type) {
+    case 'UPDATE_TITLE_TEXT':
+      appStore.title.text = action.text
+      break
+    case 'UPDATE_TITLE_COLOR':
+      appStore.title.color = action.color
+      break
+    default:
+      break
+  }
+}
+
 function renderApp (appState) {
   renderTitle(appState.title)
   renderContent(appState.content)
@@ -26,4 +39,7 @@ function renderContent (content) {
   contentDOM.style.color = content.color
 }
 
-renderApp(appStore)
+renderApp(appStore) // 首次渲染页面
+dispatch({ type: 'UPDATE_TITLE_TEXT', text: '《React.js 小书》' }) // 修改标题文本
+dispatch({ type: 'UPDATE_TITLE_COLOR', color: 'blue' }) // 修改标题颜色
+renderApp(appStore) // 把新的数据渲染到页面上
